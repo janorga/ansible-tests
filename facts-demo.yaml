@@ -1,0 +1,33 @@
+- name: "Demonstrate connecting to switches"
+  hosts: switches
+  gather_facts: no
+
+  tasks:
+    ###
+    # Collect data
+    #
+    # - name: Gather facts (eos)
+    #   arista.eos.eos_facts:
+    #   when: ansible_network_os == 'arista.eos.eos'
+
+    - name: Gather facts (ios)
+      cisco.ios.ios_facts:
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    # - name: Gather facts (vyos)
+    #   vyos.vyos.vyos_facts:
+    #   when: ansible_network_os == 'vyos.vyos.vyos'
+
+
+    - name: Display some facts
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: copy facts to file
+      copy: 
+        content: "{{ hostvars['ST-LAB-03'] | to_nice_json }}"
+        dest: /tmp/facts_sample.json
+      delegate_to: localhost
+      run_once: true
+
+    

@@ -1,0 +1,14 @@
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: cisco.ios.ios
+ansible_user: admin
+ansible_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37653665396166666635343761386532396136373133616337616637636536373937626632393730
+          3033663635363438373733346231373966343731333962370a663739326366623532666336306136
+          61376231653637303835656330623966366239613466366562323235353263616139333637343665
+          3334313332656333380a396666343130336330633437633063633364323536656236353830373935
+          6235
+# ansible_become: yes
+# ansible_become_method: enable
+# ansible_become_password: !vault...
+ansible_ssh_common_args: "-o KexAlgorithms=diffie-hellman-group1-sha1 -o Ciphers=aes128-cbc"
